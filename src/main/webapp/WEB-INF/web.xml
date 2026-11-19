@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd"
+         version="4.0">
+  <display-name>ReelBoost Video Enhancer</display-name>
+
+  <listener><listener-class>com.reelboost.web.AppListener</listener-class></listener>
+
+  <servlet>
+    <servlet-name>api</servlet-name>
+    <servlet-class>com.reelboost.web.ApiServlet</servlet-class>
+    <!-- Upload limit enforced by Tomcat: 500 MB. Change here (bytes) if you raise REELBOOST_MAX_UPLOAD_MB. -->
+    <multipart-config>
+      <max-file-size>524288000</max-file-size>
+      <max-request-size>525336576</max-request-size>
+      <file-size-threshold>1048576</file-size-threshold>
+    </multipart-config>
+  </servlet>
+  <servlet-mapping><servlet-name>api</servlet-name><url-pattern>/api/*</url-pattern></servlet-mapping>
+
+  <servlet>
+    <servlet-name>health</servlet-name>
+    <servlet-class>com.reelboost.web.HealthServlet</servlet-class>
+  </servlet>
+  <servlet-mapping><servlet-name>health</servlet-name><url-pattern>/health</url-pattern></servlet-mapping>
+
+  <welcome-file-list><welcome-file>index.html</welcome-file></welcome-file-list>
+  <session-config><session-timeout>30</session-timeout></session-config>
+</web-app>

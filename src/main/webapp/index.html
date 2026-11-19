@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="hi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>ReelBoost | AI-style Video Enhancer</title><meta name="theme-color" content="#07070b">
+<meta name="description" content="Video upload karo aur denoise, sharpen, colour grade, 4K upscale, stabilize aur audio clean ke saath enhance karke download karo.">
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&amp;family=DM+Sans:wght@400;500;700&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css"></head>
+<body>
+<div class="aurora" aria-hidden="true"><i></i><i></i></div><div class="grain" aria-hidden="true"></div>
+<header class="top"><a class="logo" href="#top"><svg viewBox="0 0 32 32" class="reel" aria-hidden="true"><circle cx="16" cy="16" r="14" fill="none" stroke="currentColor" stroke-width="2"/><circle cx="16" cy="7" r="3.2"/><circle cx="16" cy="25" r="3.2"/><circle cx="7" cy="16" r="3.2"/><circle cx="25" cy="16" r="3.2"/><circle cx="16" cy="16" r="2"/></svg>Reel<b>Boost</b></a>
+<nav><a href="#studio">Studio</a><a href="#features">Features</a></nav></header>
+
+<main id="top">
+<section class="hero"><div class="hero-t"><p class="chip"><i></i> Denoise &middot; Sharpen &middot; Grade &middot; 4K Upscale</p>
+<h1>Aapki footage,<br><span>ekdam cinematic.</span></h1>
+<p class="sub">Video upload karo, ek style chuno, aur ReelBoost use saaf, sharp aur rangeen bana dega. Server par FFmpeg ka professional pipeline chalta hai.</p>
+<a class="btn" href="#studio">Video enhance karo</a></div>
+<div class="demo" aria-hidden="true"><svg viewBox="0 0 400 250" class="scene before"><use href="#scene"/></svg><svg viewBox="0 0 400 250" class="scene after"><use href="#scene"/></svg><i class="scan"></i><span class="tag l">BEFORE</span><span class="tag r">AFTER</span></div></section>
+<svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs><symbol id="scene" viewBox="0 0 400 250"><defs><linearGradient id="sk" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5b3cc4"/><stop offset=".55" stop-color="#ff6a88"/><stop offset="1" stop-color="#ffc371"/></linearGradient></defs><rect width="400" height="250" fill="url(#sk)"/><circle cx="270" cy="140" r="38" fill="#fff1c1"/><path d="M0 190L70 120L130 175L200 100L290 190L350 140L400 185V250H0Z" fill="#2b1a5e"/><path d="M0 220L90 170L170 215L260 165L340 215L400 190V250H0Z" fill="#150c33"/><g fill="#fff" opacity=".8"><circle cx="40" cy="30" r="1.6"/><circle cx="120" cy="50" r="1.2"/><circle cx="210" cy="24" r="1.6"/><circle cx="330" cy="46" r="1.2"/></g></symbol></defs></svg>
+
+<section id="studio" class="panel">
+<div id="warn" class="warn" hidden></div>
+
+<div id="stepUpload">
+<h2><span class="n">1</span> Apna video chuno</h2>
+<div id="drop" class="drop" tabindex="0" role="button" aria-label="Video upload karo">
+<input id="file" type="file" accept="video/mp4,video/quicktime,video/x-matroska,video/webm,.mp4,.mov,.mkv,.avi,.webm,.m4v" hidden>
+<div class="ph"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 34V14m0 0-8 8m8-8 8 8M8 38h32"/></svg><p><b>Video yahan drop karo</b><br><span id="limits">MP4, MOV, MKV, AVI, WEBM</span></p></div>
+<div class="pv" hidden><video id="srcv" muted playsinline controls></video><div class="meta"><b id="fname"></b><span id="fmeta"></span><button id="change" class="lnk" type="button">Video badlo</button></div></div></div>
+</div>
+
+<div id="stepStyle" hidden>
+<h2><span class="n">2</span> Style chuno</h2>
+<div id="presets" class="presets" role="radiogroup" aria-label="Enhancement style"></div>
+<details class="adv"><summary>Fine-tune settings</summary>
+<div class="form">
+<label>Resolution<select id="height"><option value="0">Original</option><option value="720">HD 720p</option><option value="1080">Full HD 1080p</option><option value="1440">2K 1440p</option><option value="2160">4K 2160p (slow)</option></select></label>
+<label>Quality<select id="quality"><option value="FAST">Fast</option><option value="BALANCED" selected>Balanced</option><option value="BEST">Best (slow)</option></select></label>
+<label>Denoise<select id="denoise"><option value="0">Off</option><option value="1">Low</option><option value="2">Medium</option><option value="3">High</option></select></label>
+<label>Sharpen<select id="sharpen"><option value="0">Off</option><option value="1">Low</option><option value="2">Medium</option><option value="3">High</option></select></label>
+<label>Colour grade<select id="color"><option value="0">Off</option><option value="1">Low</option><option value="2">Medium</option><option value="3">High</option></select></label>
+<div class="tg"><label class="sw"><input id="audio" type="checkbox" checked><span></span> Audio clean + loudness</label><label class="sw" id="stabw"><input id="stab" type="checkbox"><span></span> Stabilize (shaky video)</label></div>
+</div></details>
+<div class="actions"><button id="go" class="btn big" type="button">Enhance karo</button></div>
+</div>
+
+<div id="stepProg" hidden>
+<h2><span class="n">3</span> <span id="ptitle">Enhance ho raha hai</span></h2>
+<div class="film" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+<div class="bar" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><i id="fill"></i></div>
+<p class="pl"><span id="pstage">Starting</span><b id="ppct">0%</b></p><p id="peta" class="dim"></p>
+<button id="cancel" class="btn ghost sm" type="button">Cancel</button>
+</div>
+
+<div id="stepDone" hidden>
+<h2><span class="n">&#10003;</span> Aapka enhanced video tayyar hai</h2>
+<div id="stats" class="stats"></div>
+<div class="cmp" id="cmp"><img id="imgA" alt="Enhanced frame"><img id="imgB" alt="Original frame"><i class="line"></i><span class="tag l">BEFORE</span><span class="tag r">AFTER</span><input id="rng" type="range" min="0" max="100" value="50" aria-label="Before aur after compare slider"></div>
+<div class="vids"><figure><figcaption>Original</figcaption><video id="vb" muted playsinline controls></video></figure><figure><figcaption>Enhanced</figcaption><video id="va" playsinline controls></video></figure></div>
+<div class="actions"><a id="dl" class="btn big" href="#" download>Download enhanced video</a><button id="again" class="btn ghost" type="button">Naya video</button><button id="del" class="btn ghost sm" type="button">Server se hatao</button></div>
+</div>
+
+<p id="err" class="err" role="alert"></p>
+</section>
+
+<section id="features" class="feat"><h2>Kya-kya hota hai</h2><div class="fg">
+<article><b>Denoise</b><p>Grain aur noise kam, low-light footage bhi saaf.</p></article>
+<article><b>Smart sharpen</b><p>Detail ubharta hai bina colour bigade.</p></article>
+<article><b>Colour grade</b><p>Auto, Cinematic aur Vivid looks, contrast aur saturation balanced.</p></article>
+<article><b>Upscale to 4K</b><p>720p se 1080p, 2K ya 4K. Portrait videos bhi sahi.</p></article>
+<article><b>Stabilize</b><p>Haath se shoot kiye hue hilte video ko smooth karta hai.</p></article>
+<article><b>Audio clean</b><p>Hiss kam, awaaz ek saman loudness par.</p></article></div></section>
+</main>
+<footer>ReelBoost &middot; Aapke videos kuch ghanton baad server se apne aap delete ho jaate hain.</footer>
+<script src="assets/js/app.js"></script>
+</body></html>
